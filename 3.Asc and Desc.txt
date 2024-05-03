@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pic18f4550.h>
+void ascend(void);
+void descend(void);
+void main(void) {
+ int choice;
+ choice=1;
+ if (choice==1)
+ ascend();
+ else if (choice==2)
+ descend();
+}
+ void ascend ()
+ {
+ int i,j,temp;
+ int num_asc[] = {10,2,5,1,6};
+ for(i=0; i<=4; i++){ // point to LHS number
+ for(j=i+1;j<=4;j++) // point to RHS number
+ if (num_asc[i] > num_asc[j]){ // if LHS > RHS , change the position
+ temp = num_asc[i];
+num_asc[i] =num_asc[j];
+ num_asc[j]= temp;
+ }
+ }
+ }
+void descend ()
+{
+ int i,j,temp;
+ int num_asc[] = {10,2,5,1,6};
+ for(i=0; i<=4; i++){ // point to LHS number
+ for(j=i+1;j<=4;j++) // point to RHS number
+ if (num_asc[i] < num_asc[j]){ // if LHS > RHS , change the position
+ temp = num_asc[i];
+ num_asc[i] =num_asc[j];
+ num_asc[j]= temp;
+ }
+ }
+}
