@@ -1,0 +1,88 @@
+#include <GL/glut.h>
+#include<math.h>
+GLsizei wh=500,ww=500;
+void myinit()
+{
+    glClearColor(1.0,1.0,1.0,0.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0.0,(GLdouble)ww,0.0,(GLdouble)wh);
+    glMatrixMode(GL_MODELVIEW);
+
+}
+void drawkite(float x,float y)
+{
+    glColor3f(1.0,1.0,0.0);
+    glBegin(GL_POLYGON);
+    glVertex2f(x-20,y+10);
+    glVertex2f(x-20,y-40);
+    glVertex2f(x+20,y-10);
+    glVertex2f(x+20,y+40);
+    glEnd();
+    glColor3f(0.0,0.0,0.0);
+    glBegin(GL_LINES);
+    glVertex2f(x-20,y+10);
+    glVertex2f(x+20,y-10);
+    glVertex2f(x-20,y-40);
+    glVertex2f(x+20,y+40);
+    glEnd();
+    glFlush();
+}
+void drawstring(float x,float y)
+{
+    glColor3f(1.0,0.0,1.0);
+    glBegin(GL_LINES);
+    glVertex2f(x-20,y-40);
+    glVertex2f(x-30,y-80);
+    glVertex2f(x-30,y-80);
+    glVertex2f(x-50,y-120);
+    glVertex2f(x-50,y-120);
+    glVertex2f(x-80,y-150);
+    glEnd();
+    glFlush();
+}
+void delay()
+{
+    int i,j,r;
+    for(i=0;i<1000;i++)
+    for(j=0;j<60000;j++)
+    r=i*j*10;
+}
+void myDisplay()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    float i=50.0,j=50.0;
+    while(j<=450.0)
+    {
+        i=50.0;
+        while(i<400.0)
+        {
+            drawkite(i,j);
+            drawstring(i,j);
+            glClear(GL_COLOR_BUFFER_BIT);
+            delay();
+            i=i+5.0;
+            j=j+1.0;
+        }
+        while(i>100.0)
+        {
+            drawkite(i,j);
+            drawstring(i,j);
+            glClear(GL_COLOR_BUFFER_BIT);
+            delay();
+            i=i-5.0;
+            j=j+1.0;
+        }
+    } 
+}
+int main(int argc, char** argv)
+{
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
+    glutInitWindowSize(500,500);
+    glutInitWindowPosition(50,50);
+    glutCreateWindow("Click");
+    glutDisplayFunc(myDisplay);
+    myinit();
+    glutMainLoop();
+}
